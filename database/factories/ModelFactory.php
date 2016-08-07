@@ -1,6 +1,6 @@
 <?php
 
-/*
+/*数据填充的模型工厂
 |--------------------------------------------------------------------------
 | Model Factories
 |--------------------------------------------------------------------------
@@ -11,9 +11,10 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
+        'username' => $faker->firstName,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
