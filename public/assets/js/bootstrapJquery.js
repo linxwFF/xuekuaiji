@@ -12451,4 +12451,4 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-//# sourceMappingURL=admin.js.map
+//# sourceMappingURL=bootstrapJquery.js.map
