@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Request;
 
 class AuthController extends Controller
 {
@@ -22,6 +23,12 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    //设置成功登录后转向的页面：
+    protected $redirectPath = '/dashboard';
+    //设置登录失败后转向的页面：
+    protected $loginPath = '/login';
+    //设置退出登录后转向的页面：
+    protected $redirectAfterLogout = '/test';
 
     /**
      * Create a new authentication controller instance.
@@ -39,6 +46,7 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    //对新用户的验证规则
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -62,4 +70,13 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+
+    public function getLogin()
+    {
+        return view('before.login');
+    }
+
+
+
 }

@@ -8,13 +8,11 @@
     <title>登录页</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <link href="./assets/css/bootstrap.css" rel="stylesheet">
-    <link href="./assets/css/animate.css" rel="stylesheet">
-    <link href="./assets/extendCss/style.min.css" rel="stylesheet">
-    <link href="./assets/extendCss/login.min.css" rel="stylesheet">
-    <script src='./assets/js/bootstrapJquery.js'></script>
-
-
+    <link href="{{url("./assets/css/bootstrap.css")}}" rel="stylesheet">
+    <link href="{{url("./assets/css/animate.css")}}" rel="stylesheet">
+    <link href="{{url("./assets/extendCss/style.min.css")}}" rel="stylesheet">
+    <link href="{{url("./assets/extendCss/login.min.css")}}" rel="stylesheet">
+    <script src="{{url("./assets/js/bootstrapJquery.js")}}" ></script>
 
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
@@ -47,11 +45,22 @@
                 </div>
             </div>
             <div class="col-sm-5">
-                <form method="post" action="http://www.zi-han.net/theme/hplus/index.html">
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul style="color:red;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form method="post" action="/login">
+                    {!! csrf_field() !!}
                     <h4 class="no-margins">登录：</h4>
                     <p class="m-t-md">登录会计模拟考试系统</p>
-                    <input type="text" class="form-control uname" placeholder="用户名" />
-                    <input type="password" class="form-control pword m-b" placeholder="密码" />
+                    <input type="email" class="form-control uname" placeholder="用户名" value="{{ old ('email')}}" name="email" />
+                    <input type="password" class="form-control pword m-b" placeholder="密码" value="{{ old ('password')}}" name="password" />
+                    <input type="checkbox" name="remember"> 记住我
                     <a href="#">忘记密码了？</a>
                     <button class="btn btn-success btn-block">登录</button>
                 </form>

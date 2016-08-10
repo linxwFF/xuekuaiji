@@ -18,5 +18,15 @@ Route::get('/', function () {
 
 Route::get('/test', function () {
 
-    return view('before.login');
+    echo '退出测试';
 });
+
+
+
+Route::get('/dashboard', 'DashboardController@index');
+
+
+// 认证路由...
+Route::get('/login', 'Auth\AuthController@getLogin');
+Route::post('/login', 'Auth\AuthController@postLogin');
+Route::get('/logout', 'Auth\AuthController@getLogout');
