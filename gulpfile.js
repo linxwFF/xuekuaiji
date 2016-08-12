@@ -10,6 +10,7 @@ gulp.task("copyfiles", function() {
     //jquery.js
     gulp.src("vendor/bower_dl/jquery/dist/jquery.js")
         .pipe(gulp.dest("resources/assets/js/"));
+
     //bootstap.js
     gulp.src("vendor/bower_dl/bootstrap/dist/js/bootstrap.js")
         .pipe(gulp.dest("resources/assets/js/"));
@@ -24,6 +25,32 @@ gulp.task("copyfiles", function() {
     //bootstrap 字体文件
     gulp.src("vendor/bower_dl/bootstrap/dist/fonts/**")
         .pipe(gulp.dest("public/assets/fonts"));
+
+    //----------------------------扩展样式（主题）----------------------
+            //puikinsh/gentelella  主题扩展包
+            gulp.src("vendor/bower_dl/gentelella/build/**")
+                .pipe(gulp.dest("public/build"));
+            gulp.src("vendor/bower_dl/gentelella/src/**")
+                .pipe(gulp.dest("public/src"));
+            gulp.src("vendor/bower_dl/gentelella/vendors/**")
+                .pipe(gulp.dest("public/vendors"));
+            //------jqvmap
+            gulp.src("vendor/bower_dl/jqvmap/**")
+                .pipe(gulp.dest("public/vendors/jqvmap"));
+            //-----补js
+            gulp.src("vendor/bower_dl/gentelella/production/js/**")
+                .pipe(gulp.dest("public/src/js"));
+            //-----补image
+            gulp.src("vendor/bower_dl/gentelella/production/images/**")
+                .pipe(gulp.dest("public/src/images"));
+            //-----补css
+            gulp.src("vendor/bower_dl/gentelella/production/css/**")
+                .pipe(gulp.dest("public/src/css"));
+            //-----补less
+            gulp.src("vendor/bower_dl/gentelella/production/less/**")
+                .pipe(gulp.dest("public/src/less"));
+
+    //----------------------------扩展样式（主题）----------------------
 
     //背景图片资源
     gulp.src("resources/assets/img/**")

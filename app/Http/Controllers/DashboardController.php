@@ -22,7 +22,9 @@ class DashboardController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return "登录成功";
+            
+            return view('before.dashboard');
+
         } else {
             return redirect('/login');
         }
