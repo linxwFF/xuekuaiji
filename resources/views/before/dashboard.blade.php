@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    11111你的内容
+
 @endsection
 
 @section('extentJs')
