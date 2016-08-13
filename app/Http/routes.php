@@ -21,16 +21,69 @@ Route::get('/test', function () {
     echo '退出测试';
 });
 
-Route::get('/layouts', function () {
-
-    return view("layouts.master");
-});
-
 
 Route::get('/dashboard', 'DashboardController@index');
+
+
 
 
 // 认证路由...
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@getLogout');
+
+//章节练习
+Route::get('/chapter_practice', function () {
+
+    return view("before.chapter_practice");
+
+});
+
+//大题练习
+Route::get('/dati_practice', function () {
+
+    return view("before.dati_practice");
+
+});
+
+//视频
+Route::get('/video', function () {
+
+    return view("before.video");
+
+});
+
+//考试大纲
+Route::get('/test_syllabus', function () {
+
+    return view("before.test_syllabus");
+
+});
+
+//帐号管理
+Route::get('/accounts_manage', function () {
+
+    return view("before.accounts_manage");
+
+});
+
+//常见问题
+Route::get('/question', function () {
+
+    return view("before.question");
+
+});
+
+//开始考试
+Route::get('/start_exam', function () {
+
+    return view("before.start_exam");
+
+});
+
+//考试
+Route::get('/exam', function () {
+
+    return view("before.exam");
+
+});
