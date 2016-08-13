@@ -21,6 +21,10 @@ Route::get('/test', function () {
     echo '退出测试';
 });
 
+Route::get('/layouts', function () {
+
+    return view("layouts.master");
+});
 
 
 Route::get('/dashboard', 'DashboardController@index');
