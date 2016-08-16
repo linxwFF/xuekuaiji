@@ -62,7 +62,7 @@
             </tr>
             <tr>
                 <td height="56" colspan="2" align="center" class="dlbut">
-                    <a id="lianjie" href="/Main/Kaoshi?kemu_id=1&amp;timestamp=0636462431">
+                    <a id="lianjie" href="/exam?kemu_id=1&amp;timestamp=0636462431">
                         <button class="btn btn-primary">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
