@@ -180,14 +180,14 @@ html,body{
     overflow:auto;
     }
 .myexam_body table .myexam_options #submitpaper {
-    background:url(../../img/exam/rjj1.png) no-repeat;
+    background:url(../../img/exam/rjj2.png) no-repeat;
     width:200px;
     height:40px;
     margin:10px auto;
     cursor:pointer;
     }
 .myexam_body table .myexam_options #submitpaper:hover {
-    background:url(../../img/exam/rjj2.png) no-repeat;
+    background:url(../../img/exam/rjj1.png) no-repeat;
     }
 .myexam_body table .myexam_options .type {
     background:#3399ff url(../../img/exam/jia.png) no-repeat 5px 5px;

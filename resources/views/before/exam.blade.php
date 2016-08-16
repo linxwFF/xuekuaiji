@@ -40,19 +40,29 @@
             //初始化时，定义考试的科目名称和科目的题目数量
             var title = $('.tab span[class=bs]').attr("title").split('|')[0];
             var count = $('.tab span[class=bs]').attr("title").split('|')[1];
+            //考试科目名称
             $('#kskm').text(title);
+            //总题数
             $('#zts').text(count);
+            //重置时间
+            // delCookie('sumsj-0636462431');
         });
+        //闹钟时间
         function ChangeTime() {
             var kemu_count = parseInt('1');
             var TimeNum;
+            //获取考卷时间
             if (!getCookie("sumsj-0636462431")) {
+                //没有时间就是一个小时
                 TimeNum = kemu_count * 60 * 60;
             } else {
                 TimeNum = getCookie("sumsj-0636462431");
             }
+            //每次减一秒
             TimeNum--;
+            //剩余时间存放COOKIE
             setCookie("sumsj-0636462431", TimeNum);
+            //时间视图
             if (TimeNum > 0) {
                 var fz = Math.floor(TimeNum / 60);
                 var ms = TimeNum % 60;
@@ -64,14 +74,16 @@
                 $("#myclock").text(sj);
             }
             else {
-                dianji();
+                submitpaper();
             }
         }
+        //收集答案
         function collectanswer() {
             var result = new Array();
             var temp = new Array();
             $('.temp').each(function () {
                 var index = $(this).index();
+                //考试科目名字
                 var kemu_name = $('.tab span').eq(index).text();
                 var bid = $(this).attr("ref");
                 $(this).children('.divr').each(function () {
@@ -111,15 +123,16 @@
                     }
                 });
                 result.push(temp.join('****') + '++++' + kemu_name);
+                console.log(result);
                 temp = new Array();
             });
             $('#daan').val(result.join('----').replace(/undefined/g, ''));
             // alert(result.join('----').replace(/undefined/g, ''));
         }
-        function dianji() {
+        function submitpaper() {
             if ($('.havebg').length > 0) {
                 collectanswer();
-                $('form').submit();
+                // $('form').submit();
             } else {
                 alert('没有答题，无法交卷！');
             }
@@ -143,7 +156,6 @@
         <div class="topbg">
             <div class="top" style="background:url('{{ url('./assets/img/exam/tlogo/fujian.jpg')}}') no-repeat;">
                 <div class="topr">
-
                     <img alt="" src={{url('./assets/img/exam/jsq.jpg')}} width="78" height="30" onclick="window.open('/Content/jsq.htm','_blank')"/>
                 </div>
             </div>
@@ -175,10 +187,11 @@
             </tr>
         </table>
     </div>
+
     <div class="tab">
             <span class='bs' title='财经法规与会计职业道德|62' ref="1">财经法规与会计职业道德</span>
-
     </div>
+
     <div class="myexam_body">
         <table>
             <tr>
@@ -267,7 +280,7 @@
                 </ul>
             </div>    </div>
 
-                        <div id="submitpaper" onclick="dianji()"></div>
+                        <div id="submitpaper" onclick="submitpaper()"></div>
 
                     </div>
 

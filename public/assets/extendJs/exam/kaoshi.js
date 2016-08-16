@@ -79,6 +79,8 @@ function addjc(o) {
 function deljc(o) {
     $(o).parent().remove();
 }
+
+//选择题目类型隐藏
 function showsubmenu(obj) {
     if (obj.attr("class") == "type_1") {
         obj.attr("class", "type")
