@@ -21,16 +21,13 @@ Route::get('/test', function () {
     echo '退出测试';
 });
 
-
-Route::get('/dashboard', 'DashboardController@index');
-
-
-
-
 // 认证路由...
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@getLogout');
+
+//模拟考试
+Route::get('/dashboard', 'DashboardController@index');
 
 //章节练习
 Route::get('/chapter_practice', function () {
@@ -43,6 +40,13 @@ Route::get('/chapter_practice', function () {
 Route::get('/dati_practice', function () {
 
     return view("before.dati_practice");
+
+});
+
+//考前冲刺
+Route::get('/sprint_test', function () {
+
+    return view("before.sprint_test");
 
 });
 
@@ -73,6 +77,7 @@ Route::get('/question', function () {
     return view("before.question");
 
 });
+
 
 //开始考试
 Route::get('/start_exam', function () {

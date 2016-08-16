@@ -19,7 +19,7 @@
                 if ($(this).val() == null) {
                     alert('请选择考试科目');
                 }
-                $('#lianjie').attr("href", "/Main/Kaoshi?kemu_id=" + $(this).val() + "&timestamp=0636462431");
+                $('#lianjie').attr("href", "/exam?kemu_id=" + $(this).val() + "&timestamp=0636462431");
             })
         });
     </script>

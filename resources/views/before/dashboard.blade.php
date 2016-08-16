@@ -40,7 +40,7 @@
 </div>
 
     <div class="col-md-4" style="margin-top: 15px;margin-bottom: 20px;">
-        <button type="button" class="btn btn-info btn-lg btn-bg-color">&nbsp;&nbsp;&nbsp;&nbsp;开始考试&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <button type="button" class="btn btn-info btn-lg btn-bg-color"><a href="{{url('/start_exam')}}">&nbsp;&nbsp;&nbsp;&nbsp;开始考试&nbsp;&nbsp;&nbsp;&nbsp;<a/></button>
     </div>
 </div>
 
