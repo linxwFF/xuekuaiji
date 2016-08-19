@@ -39,7 +39,7 @@ class CrateExamTable extends Migration
         //题库表
         Schema::create('question_banks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('options_id');
+            $table->integer('questions_id');
             $table->integer('type')->nullable();
             $table->softDeletes();
             $table->timestamps();
