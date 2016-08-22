@@ -40,15 +40,14 @@
 </div>
 
     <div class="col-md-4" style="margin-top: 15px;margin-bottom: 20px;">
-        <button type="button" class="btn btn-info btn-lg btn-bg-color"><a href="{{url('/start_exam')}}">&nbsp;&nbsp;&nbsp;&nbsp;开始考试&nbsp;&nbsp;&nbsp;&nbsp;<a/></button>
+        <a href="{{url('/start_exam')}}"><button type="button" class="btn btn-info btn-lg btn-bg-color">&nbsp;&nbsp;&nbsp;&nbsp;开始考试&nbsp;&nbsp;&nbsp;&nbsp;</button><a/>
     </div>
 </div>
 
 <div class="col-md-4" style="margin-left:-10px;">
     <div class="panel panel-info">
-    <div class="panel-heading"><h4><b class="black">主要功能</b></h4></div>
-      <div class="panel-body" style="padding: 10px">
-          <ul style="list-style:none;">
+    <div class="panel-heading" style="background-color:#d9edf7"><h4><b class="black">主要功能</b></h4></div>
+      <div class="panel-body">
               <li style="float:left;">
                       <a href="/Main/Ksdl" target="_blank" class="black"><i class="fa fa-graduation-cap fa-2x fa-fw" aria-hidden="true">模拟考试</i></a>
               </li>
@@ -64,7 +63,6 @@
               <li style="float:left;margin-left:10px">
                       <a href="/Main/Ksdl" target="_blank" class="black"><i class="fa fa-line-chart fa-2x fa-fw" aria-hidden="true">考前冲刺</i></a>
               </li>
-          </ul>
       </div>
     </div>
 </div>

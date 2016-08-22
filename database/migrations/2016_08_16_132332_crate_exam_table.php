@@ -17,13 +17,6 @@ class CrateExamTable extends Migration
             $table->increments('id');
             $table->text('subject');
             $table->integer('score')->nullable();
-            $table->integer('options_id');
-            $table->softDeletes();
-            $table->timestamps();
-        });
-        //选项表
-        Schema::create('options', function (Blueprint $table) {
-            $table->increments('id');
             $table->string('choose_A');
             $table->string('choose_B');
             $table->string('choose_C');
@@ -31,8 +24,9 @@ class CrateExamTable extends Migration
             $table->string('choose_E');
             $table->string('choose_F');
             $table->string('choose_G');
-            $table->integer('questions_id');
             $table->string('choose_right');
+            $table->string('analysis');
+            $table->integer('type')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

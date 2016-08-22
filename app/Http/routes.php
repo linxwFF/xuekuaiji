@@ -29,6 +29,9 @@ Route::get('/logout', 'Auth\AuthController@getLogout');
 //模拟考试
 Route::get('/dashboard', 'DashboardController@index');
 
+//考试数据
+Route::get('/examtest', 'DashboardController@examDate');
+
 //章节练习
 Route::get('/chapter_practice', function () {
 
