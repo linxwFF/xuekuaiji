@@ -29,7 +29,7 @@ class UserTableSeeder extends Seeder
 
         //普通用户
         $comm_users_fileds = array(
-            'password' => bcrypt('admin')
+            'password' => bcrypt('123456')
         );
         //创建普通用户帐号并且赋予user 权限
         $comm_users = factory('App\Models\User', 3)->create($comm_users_fileds)->each(
