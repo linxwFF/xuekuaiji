@@ -9,11 +9,15 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Question;
 use Response;
+use App\Repositories\Eloquent\UserRepository as UserRepo;
 
 class DashboardController extends Controller
 {
-    public function __construct()
+    protected $userRepo;
+
+    public function __construct(UserRepo $userRepo)
     {
+        $this->userRepo = $userRepo;
         $this->middleware('auth');
     }
     /**
@@ -23,13 +27,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
 
-            return view('before.dashboard');
+        dd($this->userRepo->allUsers());
 
-        } else {
-            return redirect('/login');
-        }
+        return redirect('/login');
 
     }
 
