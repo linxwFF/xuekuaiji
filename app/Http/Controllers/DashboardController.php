@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Question;
 use Response;
 use App\Repositories\Eloquent\UserRepository as UserRepo;
+use Crypt;
+
 
 class DashboardController extends Controller
 {
@@ -20,15 +21,10 @@ class DashboardController extends Controller
         $this->userRepo = $userRepo;
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
 
-        // dd($this->userRepo->allUsers());
 
         return view('before.dashboard');
 
