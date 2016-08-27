@@ -28,7 +28,7 @@ class AuthController extends Controller
     //设置登录失败后转向的页面：
     protected $loginPath = '/login';
     //设置退出登录后转向的页面：
-    protected $redirectAfterLogout = '/test';
+    protected $redirectAfterLogout = '/';
 
     /**
      * Create a new authentication controller instance.
