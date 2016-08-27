@@ -24,7 +24,7 @@
       @role('admin')
       <li><a><i class="fa fa-edit"></i> 管理员中心 <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu" style="display: block;">
-          <li><a href="{{url('/accounts_manage')}}">帐号管理</a></li>
+          <li><a href="{{url('/admin/userManger')}}">帐号管理</a></li>
         </ul>
       </li>
       @endrole

@@ -1,76 +1,42 @@
 <?php
 
-// 认证路由...
+// 认证路由
 Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@getLogout');
 
-//模拟考试
+//用户主界面
 Route::get('/dashboard', 'DashboardController@index');
-
-//考试数据
-Route::get('/examtest', 'DashboardController@examDate');
-
 //章节练习
-Route::get('/chapter_practice', function () {
-
-    return view("before.chapter_practice");
-
-});
-
+Route::get('/chapter_practice', 'DashboardController@chapter_practice');
 //大题练习
-Route::get('/dati_practice', function () {
-
-    return view("before.dati_practice");
-
-});
-
+Route::get('/dati_practice', 'DashboardController@dati_practice');
 //考前冲刺
-Route::get('/sprint_test', function () {
-
-    return view("before.sprint_test");
-
-});
-
+Route::get('/sprint_test', 'DashboardController@sprint_test');
 //视频
-Route::get('/video', function () {
-
-    return view("before.video");
-
-});
-
+Route::get('/video', 'DashboardController@video');
 //考试大纲
-Route::get('/test_syllabus', function () {
-
-    return view("before.test_syllabus");
-
-});
-
+Route::get('/test_syllabus', 'DashboardController@test_syllabus');
 //帐号管理
-Route::get('/accounts_manage', function () {
-
-    return view("before.accounts_manage");
-
-});
-
+Route::get('/accounts_manage', 'DashboardController@accounts_manage');
 //常见问题
-Route::get('/question', function () {
-
-    return view("before.question");
-
-});
+Route::get('/question', 'DashboardController@question');
 
 
 //开始考试
-Route::get('/start_exam', function () {
+Route::get('/start_exam', 'TestController@start_exam');
+//考试数据
+Route::get('/exam', 'TestController@examDate');
 
-    return view("before.start_exam");
 
-});
 
-//考试
-Route::get('/exam', function () {
 
-    return view("before.exam");
 
-});
+
+// ---管理员管理
+// 用户管理
+
+// 属于 `Owner` 用户组的人, 才能访问 `admin/advanced*` 开头的链接
+Entrust::routeNeedsRole( 'admin/*', 'admin' );
+
+Route::get('admin/userManger', 'AdminController@userManger');
