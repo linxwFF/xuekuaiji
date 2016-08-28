@@ -2,9 +2,9 @@
   <div class="menu_section">
     <h3>General</h3>
     <ul class="nav side-menu">
-      <li class="active"><a><i class="fa fa-home"></i> 系统管理目录 <span class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu" style="display: block;">
-          <li><a href="{{url('/dashboard')}}">模拟考试</a></li>
+      <li ><a><i class="fa fa-home"></i> 系统管理目录 <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a href="{{url('/')}}">模拟考试</a></li>
           <li><a href="{{url('/chapter_practice')}}">章节练习</a></li>
           <li><a href="{{url('/dati_practice')}}">大题练习</a></li>
           <li><a href="{{url('/sprint_test')}}">考前冲刺</a></li>
@@ -13,17 +13,18 @@
         </ul>
       </li>
 
-      <li class="active"><a><i class="fa fa-edit"></i> 用户中心 <span class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu" style="display: block;">
+      <li ><a><i class="fa fa-edit"></i> 用户中心 <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu" >
           <li><a href="{{url('/accounts_manage')}}">帐号管理</a></li>
           <li><a href="{{url('/test_syllabus')}}">考试中心</a></li>
           <li><a href="{{url('/test_syllabus')}}">成绩分析</a></li>
           <li><a href="{{url('/question')}}">常见问题</a></li>
         </ul>
       </li>
+
       @role('admin')
-      <li><a><i class="fa fa-edit"></i> 管理员中心 <span class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu" style="display: block;">
+      <li ><a><i class="fa fa-edit"></i> 管理员中心 <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu" >
           <li><a href="{{url('/admin/userManger')}}">帐号管理</a></li>
         </ul>
       </li>

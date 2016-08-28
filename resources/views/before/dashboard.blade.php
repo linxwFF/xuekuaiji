@@ -44,23 +44,23 @@
     </div>
 </div>
 
-<div class="col-md-4" style="margin-left:-10px;">
+<div class="col-md-4" >
     <div class="panel panel-info">
     <div class="panel-heading" style="background-color:#d9edf7"><h4><b class="black">主要功能</b></h4></div>
       <div class="panel-body">
-              <li style="float:left;">
+              <li style="float:left;list-style: none;margin-left:10px">
                       <a href="/Main/Ksdl" target="_blank" class="black"><i class="fa fa-graduation-cap fa-2x fa-fw" aria-hidden="true">模拟考试</i></a>
               </li>
-              <li style="float:left;margin-left:10px">
+              <li style="float:left;list-style: none;margin-left:10px">
                       <a href="/Main/Ksdl" target="_blank" class="black"><i class="fa fa-bars fa-2x fa-fw" aria-hidden="true">章节练习</i></a>
               </li>
-              <li style="float:left;margin-left:10px">
+              <li style="float:left;list-style: none;margin-left:10px">
                       <a href="/Main/Ksdl" target="_blank" class="black"><i class="fa fa-bar-chart fa-2x fa-fw" aria-hidden="true">考试大纲</i></a>
               </li>
-              <li style="float:left;margin-left:10px">
+              <li style="float:left;list-style: none;margin-left:10px">
                       <a href="/Main/Ksdl" target="_blank" class="black"><i class="fa fa-question-circle-o fa-2x fa-fw" aria-hidden="true">常见问题</i></a>
               </li>
-              <li style="float:left;margin-left:10px">
+              <li style="float:left;list-style: none;margin-left:10px">
                       <a href="/Main/Ksdl" target="_blank" class="black"><i class="fa fa-line-chart fa-2x fa-fw" aria-hidden="true">考前冲刺</i></a>
               </li>
       </div>

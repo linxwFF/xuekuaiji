@@ -1,12 +1,13 @@
 <?php
 
 // 认证路由
-Route::get('/', 'Auth\AuthController@getLogin');
+Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@getLogout');
 
 //用户主界面
-Route::get('/dashboard', 'DashboardController@index');
+Route::get('/', 'DashboardController@index');
+
 //章节练习
 Route::get('/chapter_practice', 'DashboardController@chapter_practice');
 //大题练习

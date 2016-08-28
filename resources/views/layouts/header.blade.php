@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{{config('app.site_title')}} </title>
+  <title>{{config('global.web.site_title')}} </title>
 
   <!-- Bootstrap -->
   <link href={{asset("../vendors/bootstrap/dist/css/bootstrap.min.css")}} rel="stylesheet">
