@@ -25,7 +25,8 @@
       @role('admin')
       <li ><a><i class="fa fa-edit"></i> 管理员中心 <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu" >
-          <li><a href="{{url('/admin/userManger')}}">帐号管理</a></li>
+          <li><a href="{{url('/admin/userManage')}}">帐号管理</a></li>
+          <li><a href="{{url('/admin/questionManage')}}">试题管理</a></li>
         </ul>
       </li>
       @endrole
@@ -46,7 +47,7 @@
   <a data-toggle="tooltip" data-placement="top" title="Lock">
     <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
   </a>
-  <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{asset('/logout')}}">
+  <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{url('/logout')}}">
     <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
   </a>
 </div>

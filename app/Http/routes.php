@@ -40,4 +40,12 @@ Route::get('/exam', 'TestController@examDate');
 // 属于 `Owner` 用户组的人, 才能访问 `admin/advanced*` 开头的链接
 Entrust::routeNeedsRole( 'admin/*', 'admin' );
 
-Route::get('admin/userManger', 'AdminController@userManger');
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function ($router) {
+
+    //用户管理
+    require( __DIR__ . '/Route/UserManageRoute.php');
+
+    //考题管理
+    require( __DIR__ . '/Route/QuestionManageRoute.php');
+
+});
