@@ -12,6 +12,7 @@ use Lang;
 
 use App\Exceptions\RestException as Exception;
 use Symfony\Component\HttpFoundation\Response as Error;
+use Response;
 
 abstract class Repository implements BaseInterface
 {
@@ -194,7 +195,8 @@ abstract class Repository implements BaseInterface
       }
 
       // 是否存在
-      public function isExist($id){
+      public function isExist($id)
+      {
         $result = true;
 
         if (empty($id) || !is_numeric($id) || !$this->whereNull('deleted_at')->find($id)) {
@@ -202,5 +204,16 @@ abstract class Repository implements BaseInterface
         }
 
         return $result;
+      }
+
+      // 获取所有的数据
+      public function table($fields)
+      {
+          $model = $this->model();
+          $list = $model::select($fields)->get()->toArray();
+          $result = [
+              'data' => $list
+          ];
+          return $result;
       }
 }

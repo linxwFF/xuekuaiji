@@ -8,14 +8,18 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
 use App\Models\Question;
+use App\Repositories\Eloquent\QuestionRepository as QuestionRepo;
 
 class QuestionManageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $questionRepo;
+
+    public function __construct(QuestionRepo $questionRepo)
+    {
+        $this->questionRepo = $questionRepo;
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('admin.questions_manage');
@@ -24,14 +28,17 @@ class QuestionManageController extends Controller
 
     public function table()
     {
-
-        $list = Question::all();
-
-        $data = [
-            'data' => $list
+        $fields = [
+            'id',
+            'subject',
+            'score',
+            'type',
+            'created_at'
         ];
 
-        return Response::json($data);
+        $result = $this->questionRepo->table($fields);
+
+        return Response::json($result);
     }
     /**
      * Show the form for creating a new resource.

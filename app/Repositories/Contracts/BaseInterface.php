@@ -22,4 +22,7 @@ interface BaseInterface{
     // 是否存在
     public function isExist($id);
 
+    // 获取所有的数据列表
+    public function table($fields);
+
 }
