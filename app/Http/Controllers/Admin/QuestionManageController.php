@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Response;
 use App\Models\Question;
 use App\Repositories\Eloquent\QuestionRepository as QuestionRepo;
+use App\Http\Requests\QuestionPostRequest;
 
 class QuestionManageController extends Controller
 {
@@ -56,6 +57,7 @@ class QuestionManageController extends Controller
      */
     public function create()
     {
+        
         return view('admin.questions_manage.create');
     }
 
@@ -65,9 +67,11 @@ class QuestionManageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionPostRequest $request)
     {
-        //
+
+        dd($request->all());
+
     }
 
     /**

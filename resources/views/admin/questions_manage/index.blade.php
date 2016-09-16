@@ -45,7 +45,7 @@
         <!-- 验证 -->
 
             <span class="section">
-            <button type="button" class="btn btn-success">新增</button>
+            <a href="{{ url('admin/questionManage/create')}}" ><button type="button" class="btn btn-success">新增</button></a>
             <button id="delete"    type="button" class="btn btn-danger">删除选中的行</button>
             </span>
             <table id="table" class="table table-hover table-bordered table-condensed " cellspacing="0" width="100%">
