@@ -16,6 +16,6 @@ class UserManageController extends Controller
 
     public function userManage()
     {
-        return view('admin.accounts_manage');
+        return view('admin.accounts_manage.index');
     }
 }

@@ -22,7 +22,7 @@ class QuestionManageController extends Controller
 
     public function index()
     {
-        return view('admin.questions_manage');
+        return view('admin.questions_manage.index');
     }
 
 
@@ -36,9 +36,18 @@ class QuestionManageController extends Controller
             'created_at'
         ];
 
-        $result = $this->questionRepo->table($fields);
+        $data = $this->questionRepo->table($fields);
+        // //请求次数
+        // $draw = request('draw', 1);
+        //
+        // $result = [
+        //     'draw' => $draw,
+        //     'recordsTotal' => 10,
+        //     'recordsFiltered' => 10,
+        //     'data' => $data,
+        // ];
 
-        return Response::json($result);
+        return Response::json($data);
     }
     /**
      * Show the form for creating a new resource.
@@ -47,7 +56,7 @@ class QuestionManageController extends Controller
      */
     public function create()
     {
-        return view('admin.questions_manage_create');
+        return view('admin.questions_manage.create');
     }
 
     /**
