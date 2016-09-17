@@ -14,7 +14,7 @@ gulp.task("copyfiles", function() {
     //bootstap.js
     gulp.src("vendor/bower_dl/bootstrap/dist/js/bootstrap.js")
         .pipe(gulp.dest("resources/assets/js/"));
-        
+
     //bootstrap css 文件
     gulp.src("vendor/bower_dl/bootstrap/less/**")
         .pipe(gulp.dest("resources/assets/less/bootstrap"));
@@ -38,6 +38,11 @@ gulp.task("copyfiles", function() {
             //-----补js
             gulp.src("vendor/bower_dl/gentelella/production/js/**")
                 .pipe(gulp.dest("public/src/js"));
+            //-----jquery-validation
+            gulp.src("vendor/bower_dl/jquery-validation/dist/jquery.validate.min.js")
+                .pipe(gulp.dest("public/src/js/jquery-validation/dist"));
+            gulp.src("vendor/bower_dl/jquery-validation/src/localization/messages_zh.js")
+                .pipe(gulp.dest("public/src/js/jquery-validation/src/localization"));
             //-----补css
             gulp.src("vendor/bower_dl/gentelella/production/css/**")
                 .pipe(gulp.dest("public/src/css"));

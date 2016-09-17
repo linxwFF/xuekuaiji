@@ -10,6 +10,7 @@ use Response;
 use App\Models\Question;
 use App\Repositories\Eloquent\QuestionRepository as QuestionRepo;
 use App\Http\Requests\QuestionPostRequest;
+use App\Models\Dict;
 
 class QuestionManageController extends Controller
 {
@@ -57,8 +58,16 @@ class QuestionManageController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.questions_manage.create');
+        $result = Dict::getByCodes([
+            'question_type' => 'question_type',
+        ]);
+
+        return view('admin.questions_manage.create')->with('question_type', $result['question_type']);
+    }
+
+    public function createDati()
+    {
+        return view('admin.questions_manage.createDati');
     }
 
     /**
@@ -73,6 +82,14 @@ class QuestionManageController extends Controller
         dd($request->all());
 
     }
+
+    public function storeDati(Request $request)
+    {
+
+        dd($request->all());
+
+    }
+
 
     /**
      * Display the specified resource.
