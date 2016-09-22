@@ -7,13 +7,16 @@
 .black{
     color: #000000;
 }
+.error{
+	color:red;
+}
 
 
 </style>
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row black">
 <div class="x_panel">
   <div class="x_title">
     <h2>添加试题 <small><a href="{{ url('admin/questionManage/createDati') }}"><button class="btn btn-primary">添加大题</button></a></small></h2>
@@ -34,7 +37,7 @@
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
-   <form action="{{ url('admin/questionManage') }}" method="post">
+   <form action="{{ url('admin/questionManage') }}" method="post" id="signupForm">
        {{ csrf_field() }}
     <!-- Start SmartWizard Content -->
     <div id="wizard_verticle" class="form_wizard wizard_verticle">
@@ -51,7 +54,7 @@
           </a>
         </li>
 
-        <li>
+        <li id="type_3">
           <a href="#step-33">
             <span class="step_no">3</span>
           </a>
@@ -74,7 +77,7 @@
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="type" id="type">
-                    <option value="0">请选择题型</option>
+                    <option value="">请选择题型</option>
                     @foreach($question_type as $item)
                     <option value="{{ $item['value'] }}"
                     @if(old('type') && old('type') == $item['value'])
@@ -94,9 +97,9 @@
              <label class="control-label col-md-2 col-sm-2 col-xs-12">分数 <span class="required">*</span>
              </label>
              <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="radio" name="score" value="1"> 1 分
-                 <input type="radio" name="score" value="2"> 2 分
-                 <input type="radio" name="score" value="3"> 3 分
+                 <input type="radio" name="score" value="1" @if(old('score') && old('score') == 1) checked @endif> 1 分
+                 <input type="radio" name="score" value="2" @if(old('score') && old('score') == 2) checked @endif> 2 分
+                 <input type="radio" name="score" value="3" @if(old('score') && old('score') == 3) checked @endif> 3 分
              </div>
              @if ($errors->first('score'))
              <div class="alert">{{ $errors->first('score') }}</div>
@@ -111,14 +114,14 @@
           <h2 class="StepTitle">基本属性：</h2>
           <span class="section"></span>
 
-          <div class="item form-group {{ $errors->has('subject')?"bad":'' }}">
+          <div class="item form-group {{ $errors->has('subject')?"bad":'' }}" style="height:250px">
             <label class="control-label col-md-2 col-sm-2 col-xs-12">题目 <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <textarea id="textarea" name="subject"
-              rows="3"
-              required="required"
+              <textarea name="subject"
+              rows="5"
               placeholder="题目"
+              required="required"
               class="form-control col-md-7 col-xs-12">{{ old('subject') }}</textarea>
             </div>
           @if ($errors->first('subject'))
@@ -130,46 +133,41 @@
     </div>
 
     <div id="step-33">
-
-    </div>
-
-    <div id="step-44">
         <div class="form-horizontal form-label-left">
           <h2 class="StepTitle">正确答案：</h2>
           <span class="section"></span>
           <div class="item form-group {{ $errors->has('choose_right')?"bad":'' }}">
             <label class="control-label col-md-2 col-sm-2 col-xs-12">正确选项 <span class="required">*</span>
             </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input id="choose_right" class="form-control col-md-7 col-xs-12"
-              value="{{ old('choose_right') }}"
-              data-validate-length-range="6"
-              data-validate-words="2"
-              name="choose_right"
-              placeholder="正确选项"
-              required="required" type="text">
-            </div>
-            @if ($errors->first('choose_right'))
-            <div class="alert">{{ $errors->first('choose_right') }}</div>
-            @endif
+              <div class="col-md-6 col-sm-6 col-xs-12" id="choose_right">
+
+
+              @if ($errors->first('choose_right'))
+              <div class="alert">{{ $errors->first('choose_right') }}</div>
+              @endif
+              </div>
           </div>
 
           <div class="item form-group {{ $errors->has('analysis')?"bad":'' }}">
             <label class="control-label col-md-2 col-sm-2 col-xs-12">解析 <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <textarea id="textarea" name="analysis"
-              value="{{ old('analysis') }}"
-              rows="3"
+              <textarea name="analysis"
+              rows="5"
               placeholder="解析"
               required="required"
-              class="form-control col-md-7 col-xs-12"></textarea>
+              class="form-control col-md-7 col-xs-12">{{ old('analysis') }}</textarea>
             </div>
             @if ($errors->first('analysis'))
             <div class="alert">{{ $errors->first('analysis') }}</div>
             @endif
           </div>
+
         </div>
+    </div>
+
+    <div id="step-44">
+
     </div>
 
     </div>
@@ -186,6 +184,9 @@
 <!-- jQuery Smart Wizard -->
     <script src="{{ asset('/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
 
+    <script src="{{ asset('/src/js/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <!-- validator_cn -->
+    <script src="{{ asset('/src/js/jquery-validation/src/localization/messages_zh.js') }}"></script>
     <!-- jQuery Smart Wizard -->
     <script>
       $(document).ready(function() {
@@ -199,10 +200,9 @@
                   html_ABCD += '        </label>';
                   html_ABCD += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCD += '          <input id="choose_A" class="form-control col-md-7 col-xs-12"';
-                  html_ABCD += '          data-validate-length-range="6"';
-                  html_ABCD += '          data-validate-words="2"';
                   html_ABCD += '          name="choose_A"';
                   html_ABCD += '          placeholder="选项A"';
+                  html_ABCD += '          value="{{old('choose_A')}}"';
                   html_ABCD += '          required="required" type="text">';
                   html_ABCD += '        </div>';
                   html_ABCD += '      </div>';
@@ -212,10 +212,9 @@
                   html_ABCD += '        </label>';
                   html_ABCD += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCD += '          <input id="choose_B" class="form-control col-md-7 col-xs-12"';
-                  html_ABCD += '          data-validate-length-range="6"';
-                  html_ABCD += '          data-validate-words="2"';
                   html_ABCD += '          name="choose_B"';
                   html_ABCD += '          placeholder="选项B"';
+                  html_ABCD += '          value="{{old('choose_B')}}"';
                   html_ABCD += '          required="required" type="text">';
                   html_ABCD += '        </div>';
                   html_ABCD += '      </div>';
@@ -225,10 +224,9 @@
                   html_ABCD += '        </label>';
                   html_ABCD += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCD += '          <input id="choose_C" class="form-control col-md-7 col-xs-12"';
-                  html_ABCD += '          data-validate-length-range="6"';
-                  html_ABCD += '          data-validate-words="2"';
                   html_ABCD += '          name="choose_C"';
                   html_ABCD += '          placeholder="选项C"';
+                  html_ABCD += '          value="{{old('choose_C')}}"';
                   html_ABCD += '          required="required" type="text">';
                   html_ABCD += '        </div>';
                   html_ABCD += '      </div>';
@@ -237,11 +235,10 @@
                   html_ABCD += '        <label class="control-label col-md-2 col-sm-2 col-xs-12">选项D <span class="required">*</span>';
                   html_ABCD += '        </label>';
                   html_ABCD += '        <div class="col-md-6 col-sm-6 col-xs-12">';
-                  html_ABCD += '          <input id="choose_A" class="form-control col-md-7 col-xs-12"';
-                  html_ABCD += '          data-validate-length-range="6"';
-                  html_ABCD += '          data-validate-words="2"';
+                  html_ABCD += '          <input id="choose_D" class="form-control col-md-7 col-xs-12"';
                   html_ABCD += '          name="choose_D"';
                   html_ABCD += '          placeholder="选项D"';
+                  html_ABCD += '          value="{{old('choose_D')}}"';
                   html_ABCD += '          required="required" type="text">';
                   html_ABCD += '        </div>';
 
@@ -256,10 +253,9 @@
                   html_ABCDEFG += '        </label>';
                   html_ABCDEFG += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCDEFG += '          <input id="choose_A" class="form-control col-md-7 col-xs-12"';
-                  html_ABCDEFG += '          data-validate-length-range="6"';
-                  html_ABCDEFG += '          data-validate-words="2"';
                   html_ABCDEFG += '          name="choose_A"';
                   html_ABCDEFG += '          placeholder="选项A"';
+                  html_ABCDEFG += '          value="{{old('choose_A')}}"';
                   html_ABCDEFG += '          required="required" type="text">';
                   html_ABCDEFG += '        </div>';
                   html_ABCDEFG += '      </div>';
@@ -269,10 +265,9 @@
                   html_ABCDEFG += '        </label>';
                   html_ABCDEFG += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCDEFG += '          <input id="choose_B" class="form-control col-md-7 col-xs-12"';
-                  html_ABCDEFG += '          data-validate-length-range="6"';
-                  html_ABCDEFG += '          data-validate-words="2"';
                   html_ABCDEFG += '          name="choose_B"';
                   html_ABCDEFG += '          placeholder="选项B"';
+                  html_ABCDEFG += '          value="{{old('choose_B')}}"';
                   html_ABCDEFG += '          required="required" type="text">';
                   html_ABCDEFG += '        </div>';
                   html_ABCDEFG += '      </div>';
@@ -282,9 +277,8 @@
                   html_ABCDEFG += '        </label>';
                   html_ABCDEFG += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCDEFG += '          <input id="choose_C" class="form-control col-md-7 col-xs-12"';
-                  html_ABCDEFG += '          data-validate-length-range="6"';
-                  html_ABCDEFG += '          data-validate-words="2"';
                   html_ABCDEFG += '          name="choose_C"';
+                  html_ABCDEFG += '          value="{{old('choose_C')}}"';
                   html_ABCDEFG += '          placeholder="选项C"';
                   html_ABCDEFG += '          required="required" type="text">';
                   html_ABCDEFG += '        </div>';
@@ -294,11 +288,10 @@
                   html_ABCDEFG += '        <label class="control-label col-md-2 col-sm-2 col-xs-12">选项D <span class="required">*</span>';
                   html_ABCDEFG += '        </label>';
                   html_ABCDEFG += '        <div class="col-md-6 col-sm-6 col-xs-12">';
-                  html_ABCDEFG += '          <input id="choose_A" class="form-control col-md-7 col-xs-12"';
-                  html_ABCDEFG += '          data-validate-length-range="6"';
-                  html_ABCDEFG += '          data-validate-words="2"';
+                  html_ABCDEFG += '          <input id="choose_D" class="form-control col-md-7 col-xs-12"';
                   html_ABCDEFG += '          name="choose_D"';
                   html_ABCDEFG += '          placeholder="选项D"';
+                  html_ABCDEFG += '          value="{{old('choose_D')}}"';
                   html_ABCDEFG += '          required="required" type="text">';
                   html_ABCDEFG += '        </div>';
                   html_ABCDEFG += '      </div>';
@@ -308,11 +301,10 @@
                   html_ABCDEFG += '        </label>';
                   html_ABCDEFG += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCDEFG += '          <input id="choose_E" class="form-control col-md-7 col-xs-12"';
-                  html_ABCDEFG += '          data-validate-length-range="6"';
-                  html_ABCDEFG += '          data-validate-words="2"';
                   html_ABCDEFG += '          name="choose_E"';
                   html_ABCDEFG += '          placeholder="选项E"';
-                  html_ABCDEFG += '          required="required" type="text">';
+                  html_ABCDEFG += '          value="{{old('choose_E')}}"';
+                  html_ABCDEFG += '          type="text">';
                   html_ABCDEFG += '        </div>';
                   html_ABCDEFG += '      </div>';
 
@@ -320,12 +312,11 @@
                   html_ABCDEFG += '        <label class="control-label col-md-2 col-sm-2 col-xs-12">选项F';
                   html_ABCDEFG += '        </label>';
                   html_ABCDEFG += '        <div class="col-md-6 col-sm-6 col-xs-12">';
-                  html_ABCDEFG += '          <input id="choose_E" class="form-control col-md-7 col-xs-12"';
-                  html_ABCDEFG += '          data-validate-length-range="6"';
-                  html_ABCDEFG += '          data-validate-words="2"';
+                  html_ABCDEFG += '          <input id="choose_F" class="form-control col-md-7 col-xs-12"';
                   html_ABCDEFG += '          name="choose_F"';
                   html_ABCDEFG += '          placeholder="选项F"';
-                  html_ABCDEFG += '          required="required" type="text">';
+                  html_ABCDEFG += '          value="{{old('choose_F')}}"';
+                  html_ABCDEFG += '          type="text">';
                   html_ABCDEFG += '        </div>';
                   html_ABCDEFG += '       </div>';
 
@@ -334,21 +325,42 @@
                   html_ABCDEFG += '        </label>';
                   html_ABCDEFG += '        <div class="col-md-6 col-sm-6 col-xs-12">';
                   html_ABCDEFG += '          <input id="choose_G" class="form-control col-md-7 col-xs-12"';
-                  html_ABCDEFG += '          data-validate-length-range="6"';
-                  html_ABCDEFG += '          data-validate-words="2"';
                   html_ABCDEFG += '          name="choose_G"';
                   html_ABCDEFG += '          placeholder="选项G"';
-                  html_ABCDEFG += '          required="required" type="text">';
+                  html_ABCDEFG += '          value="{{old('choose_G')}}"';
+                  html_ABCDEFG += '          type="text">';
                   html_ABCDEFG += '        </div>';
                   html_ABCDEFG += '      </div>';
                   html_ABCDEFG += '    </div>';
 
+
+                  var html_right_1 = "";
+
+                  html_right_1 += '<input type="radio" name="choose_right" value="A" @if(old('choose_right') && old('choose_right') == 'A' ) checked @endif> A &nbsp;&nbsp;';
+                  html_right_1 += '<input type="radio" name="choose_right" value="B" @if(old('choose_right') && old('choose_right') == 'B' ) checked @endif> B &nbsp;&nbsp;';
+                  html_right_1 += '<input type="radio" name="choose_right" value="C" @if(old('choose_right') && old('choose_right') == 'C' ) checked @endif> C &nbsp;&nbsp;';
+                  html_right_1 += '<input type="radio" name="choose_right" value="D" @if(old('choose_right') && old('choose_right') == 'D' ) checked @endif> D &nbsp;&nbsp;';
+
+                  var html_right_2 = "";
+
+                  html_right_2 += '<input type="checkbox" name="choose_right[]" value="A" @if(is_array(old('choose_right')) && in_array("A", old('choose_right')) == 'A' ) checked @endif> A &nbsp;&nbsp;';
+                  html_right_2 += '<input type="checkbox" name="choose_right[]" value="B" @if(is_array(old('choose_right')) && in_array("B", old('choose_right')) == 'B' ) checked @endif> B &nbsp;&nbsp;';
+                  html_right_2 += '<input type="checkbox" name="choose_right[]" value="C" @if(is_array(old('choose_right')) && in_array("C", old('choose_right')) == 'C' ) checked @endif> C &nbsp;&nbsp;';
+                  html_right_2 += '<input type="checkbox" name="choose_right[]" value="D" @if(is_array(old('choose_right')) && in_array("D", old('choose_right')) == 'D' ) checked @endif> D &nbsp;&nbsp;';
+                  html_right_2 += '<input type="checkbox" name="choose_right[]" value="E" @if(is_array(old('choose_right')) && in_array("E", old('choose_right')) == 'E' ) checked @endif> E &nbsp;&nbsp;';
+                  html_right_2 += '<input type="checkbox" name="choose_right[]" value="F" @if(is_array(old('choose_right')) && in_array("F", old('choose_right')) == 'F' ) checked @endif> F &nbsp;&nbsp;';
+
+                  var html_right_3 = "";
+
+                  html_right_3 += '<input type="radio" name="choose_right" value="√" @if(old('choose_right') && old('choose_right') == '√' ) checked @endif> √ &nbsp;&nbsp;';
+                  html_right_3 += '<input type="radio" name="choose_right" value="&#215;" @if(old('choose_right') && old('choose_right') == '&#215;' ) checked @endif> &#215; &nbsp;&nbsp;';
+
           //默认
           var type = $("#type").val();
           switch (parseInt(type)) {
-            case 1:$("#step-33").append(html_ABCD); break;
-            case 2:$("#step-33").append(html_ABCDEFG); break;
-            case 3:$("#step-33").empty(); break;
+            case 1:$("#step-44").append(html_ABCD); $("#choose_right").append(html_right_1);break;
+            case 2:$("#step-44").append(html_ABCDEFG); $("#choose_right").append(html_right_2);break;
+            case 3:$("#step-44").empty(); $("#choose_right").append(html_right_3);break;
             case 4:alert("无效");break;
           }
 
@@ -364,9 +376,9 @@
         $('#type').change(function(){
             var type = $("#type").val();
             switch (parseInt(type)) {
-              case 1: $("#step-33").empty();$("#step-33").append(html_ABCD);break;
-              case 2: $("#step-33").empty();$("#step-33").append(html_ABCDEFG);break;
-              case 3: $("#step-33").empty();break;
+              case 1: $("#step-44").empty();$("#choose_right").empty();$("#step-44").append(html_ABCD); $("#choose_right").append(html_right_1);break;
+              case 2: $("#step-44").empty();$("#choose_right").empty();$("#step-44").append(html_ABCDEFG); $("#choose_right").append(html_right_2);break;
+              case 3: $("#step-44").empty();$("#choose_right").empty();$("#choose_right").append(html_right_3);break;
               case 4: alert("无效"); break;
             }
         });
@@ -374,4 +386,16 @@
       });
     </script>
     <!-- /jQuery Smart Wizard -->
+
+    <!-- validator -->
+     <script>
+     $().ready(function() {
+      $("#signupForm").validate({
+             submitHandler:function(form){
+                 form.submit();
+             }
+         });
+     });
+     </script>
+     <!-- /validator -->
 @endsection

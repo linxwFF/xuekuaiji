@@ -34,8 +34,8 @@ class QuestionPostRequest extends Request
         return [
             'subject.required' => '题目为必填项',
             'score.required' => '分数为必填项',
-            'type.required' => '题目类型为必填项',
-            'choose_right.required' => '正确选项为必填项',
+            'type.required' => '请选择题目类型',
+            'choose_right.required' => '请选择题目类型',
             'analysis.required' => '答案解析为必填项',
             'score.numeric' => '分数输入有误',
             'type.numeric' => '题目类型输入有误',
