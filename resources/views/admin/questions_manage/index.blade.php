@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row black">
 
     <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
@@ -46,7 +46,7 @@
 
             <span class="section">
             <a href="{{ url('admin/questionManage/create')}}" ><button type="button" class="btn btn-success">新增</button></a>
-            <button id="delete"    type="button" class="btn btn-danger">删除选中的行</button>
+            <button id="delete" type="button" class="btn btn-danger">删除选中的行</button>
             </span>
             <table id="table" class="table table-hover table-bordered table-condensed " cellspacing="0" width="100%">
             <thead>
@@ -85,12 +85,17 @@
 <script src="{{ asset('/build/js/custom.js') }}"></script>
 <!-- Datatables -->
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/js/jquery.dataTables.min.js')}}"></script>
+<!-- Layer -->
+<script type="text/javascript" charset="utf8" src="{{ asset('src/js/layer/layer.js')}}"></script>
 
 <script>
-$(document).ready(function() {
-    //表格初始化
-    initTable();
-} );
+var QuestionManage = (function() {
+    'use strict';
+
+    $(document).ready(function() {
+        //表格初始化
+        initTable();
+    });
 
 /**
 *表格初始化
@@ -132,10 +137,6 @@ function initTable() {
               "orderable": true,
               "sDefaultContent" : "",
               "sWidth" : "30%",
-                // 返回自定义内容
-                "render": function(data, type, full) {
-                    return "<a href='/show?id=" + full.id + "'>" + data + "</a>";
-                }
             },{ "mData": "score",
               "orderable": true,
               "sDefaultContent" : "",
@@ -158,7 +159,7 @@ function initTable() {
               "sWidth" : "10%",
                 // 返回自定义内容
                 "render": function(data, type, full) {
-                    return "<a type='button' class='btn btn-info' href='/update?id=" + full.id + "'>详情</a>&nbsp;<a type='button' class='btn btn-danger' href='/delete?id=" + full.id + "'>删除</a>";
+                    return "<a type='button' class='btn btn-info' href='/admin/questionManage/" + full.id + "'>详情</a>&nbsp;<a type='button' class='delete btn btn-danger' href='javascript:void(0);' >删除</a>";
                 }
             },
         ],
@@ -210,15 +211,35 @@ function initTable() {
     //删除选中行
     $('#delete').click( function () {
        var Tdata = new Array();
-       var Ids = new Array();
-       Tdata = table.rows('.selected').data();
+       var ids = new Array();
+       var table = $('#table').DataTable(); //获取DataTable对象
+       Tdata = table.rows('.selected').data(); //获取选择行对象
        for (var i = 0; i < Tdata.length; i++) {
-           Ids[i] = Tdata[i]['id'];
+           ids[i] = Tdata[i]['id'];
        }
-       if(Ids.length<1){
-		   alert("请至少选择一个");
+       if(ids.length<1){
+           layer.alert('请至少选择一个');
 	   }else{
-           console.log(Ids);
+           layer.msg('确定删除这些项目？', {
+            time: 0
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+              layer.close(index);
+              var url = '/admin/questionManage/destroy_many';
+              var csrfToken = $("meta[name='csrf-token']").attr("content");
+              var data = {
+                  _token : csrfToken,
+                  ids : ids,
+              };
+
+              var result = Util.ajaxHelper(url, 'POST', data);
+              if(result.is_true){
+                    table.rows('.selected').remove().draw( true ); //删除选中行
+                    Util.notify(result.data.message, 1);
+                }
+              }
+           });
+
 	   }
     } );
 
@@ -235,7 +256,35 @@ function initTable() {
         }
     });
 
+
+    $('#table tbody').on('click', 'a.delete', function(e) {
+       e.preventDefault();
+
+       var table = $('#table').DataTable(); //获取DataTable对象
+       var row = table.row($(this).parents('tr'))
+       var id = row.data().id; //获取选中行数据.id
+
+        layer.msg('确定删除？', {
+         time: 0
+         ,btn: ['确定', '取消']
+         ,yes: function(index){
+           layer.close(index);
+           var url = '/admin/questionManage/' + id;
+           var csrfToken = $("meta[name='csrf-token']").attr("content");
+           var data = {
+               _token: csrfToken
+           };
+
+           var result = Util.ajaxHelper(url, 'DELETE', data);
+           if(result.is_true){
+               row.remove().draw( true ); //删除选择行
+               Util.notify(result.data.message, 1);
+           }
+           }
+        });
+    });
+
 }
-     
+})();
 </script>
 @endsection

@@ -26,7 +26,16 @@
       <li ><a><i class="fa fa-edit"></i> 管理员中心 <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu" >
           <li><a href="{{url('/admin/userManage')}}">帐号管理</a></li>
-          <li><a href="{{url('/admin/questionManage')}}">试题管理</a></li>
+          <li><a href="#">试题管理</a>
+                <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="{{url('/admin/questionManage')}}">试题列表</a>
+                            </li>
+                            <li><a href="{{url('/admin/questionManage/create')}}">添加小题</a>
+                            </li>
+                            <li><a href="{{url('/admin/questionManage/createDati')}}">添加大题</a>
+                            </li>
+                </ul>
+          </li>
         </ul>
       </li>
       @endrole

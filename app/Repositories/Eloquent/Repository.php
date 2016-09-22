@@ -139,7 +139,7 @@ abstract class Repository implements BaseInterface
             }
           }
 
-          $item->delete();
+        //   $item->delete();  先不删除
 
           // $search_fields = $this->search_fields;
           // AdminLog::write(Auth::user()->username, $this->title . '删除 id=' . $id, Request::getClientIp(), date('Y-m-d H:i:s', time()));
@@ -157,7 +157,7 @@ abstract class Repository implements BaseInterface
       // 批量删除
       public function destroy_many($input, $callback = null) {
         $model = $this->model();
-        $items = $model::whereIn('id', $input['items']);
+        $items = $model::whereIn('id', $input['ids']);
 
         if ($callback) {
           try {
@@ -170,7 +170,7 @@ abstract class Repository implements BaseInterface
           }
         }
 
-        $items->delete();
+        // $items->delete(); 先不删除
 
         // $search_fields = $this->search_fields;
         // AdminLog::write(Auth::user()->username, $this->title . '删除 id=' . implode(",", $id), Request::getClientIp(), date('Y-m-d H:i:s', time()));

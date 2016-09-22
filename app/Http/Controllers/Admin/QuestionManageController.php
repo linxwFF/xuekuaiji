@@ -11,6 +11,7 @@ use App\Models\Question;
 use App\Repositories\Eloquent\QuestionRepository as QuestionRepo;
 use App\Http\Requests\QuestionPostRequest;
 use App\Models\Dict;
+use Input;
 
 class QuestionManageController extends Controller
 {
@@ -99,7 +100,9 @@ class QuestionManageController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Question::find($id);
+        dd($data);
+        return view('admin.questions_manage.detail');
     }
 
     /**
@@ -133,6 +136,14 @@ class QuestionManageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $result = $this->questionRepo->destroy_one($id);
+        return Response::json($result['data'], $result['status']);
+    }
+
+    public function destroy_many()
+    {
+        $input = Input::all();
+        $result = $this->questionRepo->destroy_many($input);
+        return Response::json($result['data'], $result['status']);
     }
 }
