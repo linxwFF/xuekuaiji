@@ -37,9 +37,18 @@ var Util = function() {
         layer.msg(message, {icon: type});
     }
 
+    //弹出信息样式
+    function layerAlert(message, skin, shift){
+        layer.alert(message, {
+          skin: skin, //样式类名
+          shift: shift //动画类型
+        });
+    }
+
     return {
         ajaxHelper : ajaxHelper,
         notify : notify,
+        layerAlert : layerAlert,
     };
 
 }();

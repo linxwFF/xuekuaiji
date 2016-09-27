@@ -79,9 +79,12 @@ class QuestionManageController extends Controller
      */
     public function store(QuestionPostRequest $request)
     {
-
-        dd($request->all());
-
+        $input = $request->all();
+        if(isset($input['choose_right']) &&  is_array($input['choose_right'])){
+            $input['choose_right']  = implode(',',$input['choose_right']); //转换多选情况
+        }
+        $result = $this->questionRepo->store_one($input);
+        return redirect('/admin/questionManage/create')->with('status', $result['data']['message']);
     }
 
     public function storeDati(Request $request)
@@ -101,8 +104,7 @@ class QuestionManageController extends Controller
     public function show($id)
     {
         $data = Question::find($id);
-        dd($data);
-        return view('admin.questions_manage.detail');
+        return view('admin.questions_manage.detail')->with('data', $data);
     }
 
     /**
@@ -128,12 +130,6 @@ class QuestionManageController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $result = $this->questionRepo->destroy_one($id);

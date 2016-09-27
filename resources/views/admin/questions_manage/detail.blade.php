@@ -19,7 +19,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-        <h2>试题管理<small>试题列表 </small></h2>
+        <h2>试题管理<small>试题{{ $data->id }} </small></h2>
 
         <!-- 右侧工具栏 -->
         <ul class="nav navbar-right panel_toolbox">
