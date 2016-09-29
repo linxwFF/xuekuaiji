@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
@@ -12,6 +11,7 @@ use App\Repositories\Eloquent\QuestionRepository as QuestionRepo;
 use App\Http\Requests\QuestionPostRequest;
 use App\Models\Dict;
 use Input;
+use DB;
 
 class QuestionManageController extends Controller
 {
@@ -62,11 +62,6 @@ class QuestionManageController extends Controller
         return view('admin.questions_manage.create')->with('question_type', $result['question_type']);
     }
 
-    public function createDati()
-    {
-        return view('admin.questions_manage.createDati');
-    }
-
     public function store(QuestionPostRequest $request)
     {
         $input = $request->all();
@@ -75,13 +70,6 @@ class QuestionManageController extends Controller
         }
         $result = $this->questionRepo->store_one($input);
         return redirect('/admin/questionManage/create')->with('status', $result['data']['message']);
-    }
-
-    public function storeDati(Request $request)
-    {
-
-        dd($request->all());
-
     }
 
     public function edit($id)

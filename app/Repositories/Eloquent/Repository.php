@@ -139,7 +139,7 @@ abstract class Repository implements BaseInterface
             }
           }
 
-        //   $item->delete();  先不删除
+          $item->delete();
 
           // $search_fields = $this->search_fields;
           // AdminLog::write(Auth::user()->username, $this->title . '删除 id=' . $id, Request::getClientIp(), date('Y-m-d H:i:s', time()));
@@ -170,14 +170,14 @@ abstract class Repository implements BaseInterface
           }
         }
 
-        // $items->delete(); 先不删除
+        $items->delete();
 
         // $search_fields = $this->search_fields;
         // AdminLog::write(Auth::user()->username, $this->title . '删除 id=' . implode(",", $id), Request::getClientIp(), date('Y-m-d H:i:s', time()));
 
         $result = [];
         $result['status'] = 202;
-        $result['data']['message'] = '删除成功！';
+        $result['data']['message'] = Lang::get('messages.deleted');
 
         return $result;
       }
@@ -210,7 +210,7 @@ abstract class Repository implements BaseInterface
       public function table($fields)
       {
           $model = $this->model();
-          $list = $model::select($fields)->get()->toArray();
+          $list = $model::select($fields)->orderBy('id','desc')->get()->toArray();
           $result = [
               'data' => $list
           ];

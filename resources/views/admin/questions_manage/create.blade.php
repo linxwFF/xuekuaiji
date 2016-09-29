@@ -19,7 +19,7 @@
 <div class="row black">
 <div class="x_panel">
   <div class="x_title">
-    <h2>添加试题 <small><a href="{{ url('admin/questionManage/createDati') }}"><button class="btn btn-primary">添加大题</button></a></small></h2>
+    <h2>添加试题 </h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -37,11 +37,7 @@
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
-      @if (session('status'))
-         <div class="alert alert-warning">
-             {{ session('status') }}
-         </div>
-      @endif
+      @include('common._alert')
    <form action="{{ url('admin/questionManage') }}" method="post" id="signupForm">
        {{ csrf_field() }}
     <!-- Start SmartWizard Content -->

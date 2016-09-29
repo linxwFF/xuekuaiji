@@ -27,7 +27,7 @@ z-index:99; /*浮动在最上层 */
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row black">
     <div class="log">
     <button class="btn btn-warning btn-sm" id="addItem">新增小题</button>
     </div>
@@ -54,18 +54,28 @@ z-index:99; /*浮动在最上层 */
         </div>
         <div class="x_content">
 
-          <form class="form-horizontal form-label-left" id="signupForm" action="{{ url('admin/questionManage/storeDati') }}" method="post">
+          <form class="form-horizontal form-label-left" id="signupForm" action="{{ url('admin/questionDatiManage') }}" method="post">
               {{ csrf_field() }}
+            <input type="hidden" value="4" name="type"/>
             <!-- 大题题目 -->
             <div class="item form-group">
               <label class="control-label col-md-2 col-sm-2 col-xs-12">大题题目 <span class="required">*</span>
               </label>
               <div class="col-md-10 col-sm-10 col-xs-12">
-                <textarea id="textarea" name="subject"
+                <textarea name="subject"
                 rows="7"
                 required
                 placeholder="大题题目"
                 class="form-control col-md-7 col-xs-12"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-2 col-sm-2 col-xs-12">本题总分数： </label>
+              <div class="col-md-2 col-sm-2 col-xs-12">
+                  <div class="input-group">
+                  <input required name="score" class="form-control col-md-2 col-xs-12" value="" type="number">
+                  <div class="input-group-addon">分</div>
+                  </div>
               </div>
             </div>
             <div class="ln_solid"></div>
@@ -165,6 +175,33 @@ $(document).ready(function() {
         html_item += '         required type="text">';
         html_item += '        </div>';
         html_item += '     </div>';
+
+        html_item += '<div class="form-group">';
+        html_item += '  <label class="control-label col-md-2 col-sm-2 col-xs-12">分数： <span class="required">*</span></label>';
+        html_item += '  <div class="col-md-10 col-sm-10 col-xs-12" >';
+        html_item += '      <input  type="radio" name="score_['+ count +']" value="1" required> 1 分';
+        html_item += '      <input  type="radio" name="score_['+ count +']" value="2" > 2 分';
+        html_item += '      <input  type="radio" name="score_['+ count +']" value="3" > 3 分';
+        html_item += '  </div>';
+        html_item += '</div>';
+
+        html_item += '<div class="form-group">';
+        html_item += '  <label class="control-label col-md-2 col-sm-2 col-xs-12">正确选项： <span class="required">*</span></label>';
+        html_item += '  <div class="col-md-10 col-sm-10 col-xs-12" >';
+        html_item += '      <input  type="checkbox" name="choose_right['+ count +']['+ count +'][]" value="A" required> A &nbsp;&nbsp;';
+        html_item += '      <input  type="checkbox" name="choose_right['+ count +']['+ count +'][]" value="B" > B &nbsp;&nbsp;';
+        html_item += '      <input  type="checkbox" name="choose_right['+ count +']['+ count +'][]" value="C" > C &nbsp;&nbsp;';
+        html_item += '      <input  type="checkbox" name="choose_right['+ count +']['+ count +'][]" value="D" > D &nbsp;&nbsp;';
+        html_item += '   </div>';
+        html_item += '</div>';
+
+        html_item += '<div class="form-group">';
+        html_item += '  <label class="control-label col-md-2 col-sm-2 col-xs-12">解析：<span class="required">*</span>';
+        html_item += '  </label>';
+        html_item += '  <div class="col-md-10 col-sm-10 col-xs-12">';
+        html_item += '  <textarea required name="analysis['+ count +']" rows="5"  class="form-control col-md-7 col-xs-12"></textarea>';
+        html_item += '  </div>';
+        html_item += '</div>';
 
         html_item += '</div>';
         html_item += '</div>';

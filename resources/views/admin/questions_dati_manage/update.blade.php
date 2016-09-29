@@ -37,9 +37,7 @@
         </div>
         <div class="x_content">
 
-        @foreach($data as $item)
-            @include("admin.questions_manage.update_form")
-        @endforeach
+            @include("admin.questions_dati_manage.update_form")
 
         </div>
     </div>
@@ -59,31 +57,39 @@ $(document).ready(function() {
     $("#edit").click(function(){
         $("input").removeAttr("readonly");
         $("textarea").removeAttr("readonly");
-        $("#score_change").addClass("hidden");
-        $("#choose_right_change").addClass("hidden");
-        $("#score").removeClass("hidden");
-        $("#choose_right").removeClass("hidden");
+
+        //选项修改状态
+        $("div[choose_right_change]").addClass("hidden");
+        $("div[choose_right]").removeClass("hidden");
+
         $("#edit").addClass("hidden");
         $("#submit").removeClass("hidden");
     });
     //返回列表
     $("#go_back").click(function(){
-        window.location.href="/admin/questionManage/";
+        window.location.href="/admin/questionDatiManage/";
     });
     //提交
     $("#submit").click(function(){
-        var id = $("#id").val();
-        var url = '/admin/questionManage/'+ id;
-        var csrfToken = $("meta[name='csrf-token']").attr("content");
-        var form = $('#form').serializeJSON();
+        var counter     = $("#counter").val();
+        var id          = $("#id").val();
+        var url         = '/admin/questionDatiManage/'+ id;
+        var csrfToken   = $("meta[name='csrf-token']").attr("content");
+        var baseForm    = $('#baseForm').serializeJSON();
+        var arr = new Array();
+        for(var i = 0;i<counter;i++){
+            arr[i] = $('#derivedFrom_'+ i).serializeJSON();
+        }
+        console.log(arr);
         var data = {
-            _token: csrfToken,
-            form : form,
+            _token      : csrfToken,
+            baseForm    : baseForm,
+            derivedFrom : arr,
         };
         var result = Util.ajaxHelper(url, 'PUT', data);
-        if(result.is_true){
-            Util.notify(result.data.message, 1);
-        }
+        // if(result.is_true){
+        //     Util.notify(result.data.message, 1);
+        // }
     });
 } );
 
