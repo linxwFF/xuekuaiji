@@ -56,6 +56,8 @@
     <script src="{{ asset('/vendors/bootstrap/dist/js/bootstrap.min.js') }} "></script>
     <!-- 工具类 -->
     <script src="{{ asset('/src/js/util.js') }} "></script>
+    <!-- Layer -->
+    <script type="text/javascript" charset="utf8" src="{{ asset('src/js/layer/layer.js')}}"></script>
     <!-- 自定义扩展JS -->
     @yield('extentJs')
   </body>

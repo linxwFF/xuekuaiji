@@ -52,11 +52,7 @@ class QuestionManageController extends Controller
 
         return Response::json($data);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $result = Dict::getByCodes([
@@ -71,12 +67,6 @@ class QuestionManageController extends Controller
         return view('admin.questions_manage.createDati');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(QuestionPostRequest $request)
     {
         $input = $request->all();
@@ -94,40 +84,48 @@ class QuestionManageController extends Controller
 
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $data = Question::find($id);
-        return view('admin.questions_manage.detail')->with('data', $data);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $result = Question::find($id);
+        $data['id']             = $result->id;
+        $data['f_id']           = $result->fid;
+        $data['subject']        = $result->subject;
+        $data['score']          = $result->score;
+        $data['analysis']       = $result->analysis;
+        $data['type']           = $result->type;
+        $data['type_text'] = Dict::getTextByCodeValue('question_type', $result->type);
+
+        if($result && $result->type == 1){   //单选题
+                $temp['A'] = $result->choose_A;
+                $temp['B'] = $result->choose_B;
+                $temp['C'] = $result->choose_C;
+                $temp['D'] = $result->choose_D;
+                $data['choose'] = $temp;
+                $data['choose_right']   = $result->choose_right;
+        }elseif ($result && $result->type == 2) { //多选题
+            $temp['A'] = $result->choose_A;
+            $temp['B'] = $result->choose_B;
+            $temp['C'] = $result->choose_C;
+            $temp['D'] = $result->choose_D;
+            $temp['E'] = $result->choose_E;
+            $temp['F'] = $result->choose_F;
+            $temp['G'] = $result->choose_G;
+            $data['choose'] = $temp;
+            $data['choose_right']   = explode(',', $result->choose_right);
+        }elseif ($result && $result->type == 3) { //判断题
+            $temp = array();
+            $data['choose'] = $temp;
+            $data['choose_right']   = $result->choose_right;
+        }
+
+        return view('admin.questions_manage.update')->with('data', ['data' => $data]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $result = $this->questionRepo->update_one($input['form']);
+        return Response::json($result['data'], $result['status']);
     }
 
     public function destroy($id)

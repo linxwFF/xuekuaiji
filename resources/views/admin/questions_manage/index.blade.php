@@ -85,8 +85,6 @@
 <script src="{{ asset('/build/js/custom.js') }}"></script>
 <!-- Datatables -->
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/js/jquery.dataTables.min.js')}}"></script>
-<!-- Layer -->
-<script type="text/javascript" charset="utf8" src="{{ asset('src/js/layer/layer.js')}}"></script>
 
 <script>
 var QuestionManage = (function() {
@@ -159,7 +157,7 @@ function initTable() {
               "sWidth" : "10%",
                 // 返回自定义内容
                 "render": function(data, type, full) {
-                    return "<a type='button' class='btn btn-info' href='/admin/questionManage/" + full.id + "'>详情</a>&nbsp;<a type='button' class='delete btn btn-danger' href='javascript:void(0);' >删除</a>";
+                    return "<a type='button' class='btn btn-warning btn-sm' href='/admin/questionManage/" + full.id + "/edit'>修改</a>&nbsp;<a type='button' class='delete btn btn-danger btn-sm' href='javascript:void(0);' >删除</a>";
                 }
             },
         ],
