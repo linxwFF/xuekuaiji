@@ -207,10 +207,10 @@ abstract class Repository implements BaseInterface
       }
 
       // 获取所有的数据
-      public function table($fields)
+      public function table($fields, $orderBy = 'desc')
       {
           $model = $this->model();
-          $list = $model::select($fields)->orderBy('id','desc')->get()->toArray();
+          $list = $model::select($fields)->orderBy('id',$orderBy)->get()->toArray();
           $result = [
               'data' => $list
           ];
