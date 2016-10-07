@@ -17,7 +17,6 @@
     <div class="x_panel">
         <div class="x_title">
         <h2>试题管理</h2>
-        <button type="button" class="btn btn-primary btn-sm" id="go_back">返回列表</button>
 
         <!-- 右侧工具栏 -->
         <ul class="nav navbar-right panel_toolbox">
@@ -59,11 +58,12 @@ $(document).ready(function() {
     $("#edit").click(function(){
         $("input").removeAttr("readonly");
         $("textarea").removeAttr("readonly");
+
         $("#score_change").addClass("hidden");
         $("#choose_right_change").addClass("hidden");
         $("#score").removeClass("hidden");
         $("#choose_right").removeClass("hidden");
-        $("#edit").addClass("hidden");
+
         $("#submit").removeClass("hidden");
     });
     //返回列表
@@ -83,6 +83,9 @@ $(document).ready(function() {
         var result = Util.ajaxHelper(url, 'PUT', data);
         if(result.is_true){
             Util.notify(result.data.message, 1);
+
+            $("input").attr("readonly", "readonly");
+            $("textarea").attr("readonly", "readonly");
         }
     });
 } );

@@ -85,16 +85,14 @@ class QuestionDatiManageController extends Controller
                 'D' => $value['choose_D'],
             );
         }
-        // dd($data);
         return view('admin.questions_dati_manage.update')->with('data', $data);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $input = $request->all();
-        dd($input);
-        // $result = $this->questionDatiRepo->update_one($input['form']);
-        // return Response::json($result['data'], $result['status']);
+        $result = $this->questionDatiRepo->update($input);  //修改大题
+        return Response::json($result['data'], $result['status']);
     }
 
     public function destroy($id)

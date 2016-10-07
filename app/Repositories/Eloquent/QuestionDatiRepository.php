@@ -44,6 +44,8 @@ class QuestionDatiRepository extends Repository
         $fid = $result['data']['item']['id'];
 
         //小题信息序列化
+        $data = array();
+        
         foreach ($input['subject_'] as $key => $value) {
             $data[$key]['_token'] = $input['_token'];
             $data[$key]['f_id'] = $fid;
@@ -67,6 +69,58 @@ class QuestionDatiRepository extends Repository
           return [
             'status' => $e->getCode(),
             'data' => ['message' => "保存失败！". $e->getMessage()]
+          ];
+        }
+          DB::commit();
+          return $result;
+        }
+        return $result;
+    }
+
+    //修改大题
+    public function update($input)
+    {
+        $baseForm = array(
+             '_token'   => $input['_token'],
+             'id'       => $input['baseForm']['id'] ,
+             'subject'  => $input['baseForm']['subject'],
+             'score'    => $input['baseForm']['score'] ,
+             'type'     => 4
+         );
+        $result = array('status' => 404, 'data' => Lang::get('messages.stored_failed'));
+        if (!empty($baseForm)) {
+                DB::beginTransaction();
+        try {
+        $result = $this->update_one($baseForm);
+        $fid = $result['data']['item']['id'];
+
+        //小题信息序列化
+        $data = array();
+
+        foreach ($input['derivedFrom'] as $key => $value) {
+            $data[$key]['_token']       = $input['_token'];
+            $data[$key]['f_id']         = $fid;
+            $data[$key]['id']           = $value['id'];
+            $data[$key]['subject']      = $value['subject'];
+            $data[$key]['choose_A']     = $value['choose_A'];
+            $data[$key]['choose_B']     = $value['choose_B'];
+            $data[$key]['choose_C']     = $value['choose_C'];
+            $data[$key]['choose_D']     = $value['choose_D'];
+            $data[$key]['score']        = $value['score'];
+            $data[$key]['type']         =  4;
+            $data[$key]['choose_right'] = implode(",", $value['choose_right']);
+            $data[$key]['analysis']     = $value['analysis'];
+        }
+
+        foreach ($data as $value) {
+            $result = $this->update_one($value);
+        }
+
+        } catch (Exception $e) {
+          DB::rollback();
+          return [
+            'status' => $e->getCode(),
+            'data' => ['message' => "更新失败！". $e->getMessage()]
           ];
         }
           DB::commit();
