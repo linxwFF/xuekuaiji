@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>2016会计无纸化考试题库系统</title>
 
-    <link href="{{url("./assets/css/bootstrap.css")}}" rel="stylesheet">
-    <link href="{{url("./assets/extendCss/exam/exam.css")}}" rel="stylesheet">
-    <script src="{{url("./assets/js/bootstrapJquery.js")}}" ></script>
+    <link href="{{url("/assets/css/bootstrap.css")}}" rel="stylesheet">
+    <link href="{{url("/assets/extendCss/exam/exam.css")}}" rel="stylesheet">
+    <script src="{{url("/assets/js/bootstrapJquery.js")}}" ></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -35,7 +35,7 @@
       <body>
 
     <div class="myexam_login_bj">
-        <img src="{{asset('./assets/img/exam/bj.jpg')}}" alt="" />
+        <img src="{{asset('/assets/img/exam/bj.jpg')}}" alt="" />
     </div>
     <div class="myexam_login_memo">
         <table>

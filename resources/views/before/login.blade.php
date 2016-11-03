@@ -8,11 +8,11 @@
     <title>登录页</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <link href="{{url("./assets/css/bootstrap.css")}}" rel="stylesheet">
-    <link href="{{url("./assets/css/animate.css")}}" rel="stylesheet">
-    <link href="{{url("./assets/extendCss/style.min.css")}}" rel="stylesheet">
-    <link href="{{url("./assets/extendCss/login.min.css")}}" rel="stylesheet">
-    <script src="{{url("./assets/js/bootstrapJquery.js")}}" ></script>
+    <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/extendCss/style.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/extendCss/login.min.css')}}" rel="stylesheet">
+    <script src="{{asset('assets/js/bootstrapJquery.js')}}" ></script>
 
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />

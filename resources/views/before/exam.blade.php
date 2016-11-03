@@ -4,13 +4,13 @@
 <head id="Head1" runat="server">
     <meta name="_token" content="{{ csrf_token() }}"/>
     <title>2016会计无纸化考试题库系统</title>
-    <link href="{{url("./assets/extendCss/exam/exam.style.css")}}" rel="stylesheet">
-    <link href="{{url("./assets/extendCss/exam/exam.css")}}" rel="stylesheet">
-    <script src="{{url("./assets/extendjs/exam/jquery-1.7.1.min.js")}}" ></script>
-    <script src="{{url("./assets/extendjs/exam/myscript.js")}}" ></script>
-    <script src="{{url("./assets/extendjs/exam/cookie.js")}}" ></script>
-    <script src="{{url("./assets/extendjs/exam/kaoshi.js")}}" ></script>
-    <script src="{{url("./assets/extendjs/exam/app.js")}}"></script>
+    <link href="{{asset("/assets/extendCss/exam/exam.style.css")}}" rel="stylesheet">
+    <link href="{{asset("/assets/extendCss/exam/exam.css")}}" rel="stylesheet">
+    <script src="{{asset("/assets/extendjs/exam/jquery-1.7.1.min.js")}}" ></script>
+    <script src="{{asset("/assets/extendjs/exam/myscript.js")}}" ></script>
+    <script src="{{asset("/assets/extendjs/exam/cookie.js")}}" ></script>
+    <script src="{{asset("/assets/extendjs/exam/kaoshi.js")}}" ></script>
+    <script src="{{asset("/assets/extendjs/exam/app.js")}}"></script>
     <style type="text/css">
         .tab {
             padding-top: 5px;
@@ -156,16 +156,16 @@
 
     <div class="myexam_head">
         <div class="topbg">
-            <div class="top" style="background:url('{{ url('./assets/img/exam/tlogo/fujian.jpg')}}') no-repeat;">
+            <div class="top" style="background:url('{{ asset('/assets/img/exam/tlogo/fujian.jpg')}}') no-repeat;">
                 <div class="topr">
-                    <img alt="" src={{url('./assets/img/exam/jsq.jpg')}} width="78" height="30" onclick="window.open('/Content/jsq.htm','_blank')"/>
+                    <img alt="" src={{asset('/assets/img/exam/jsq.jpg')}} width="78" height="30" onclick="window.open('/Content/jsq.htm','_blank')"/>
                 </div>
             </div>
         </div>
         <table>
             <tr>
                 <td class="myexam_pic ac">
-                    <img src={{url('./assets/img/exam/portrait.jpg')}} alt="" /></td>
+                    <img src={{asset('/assets/img/exam/portrait.jpg')}} alt="" /></td>
                 <td class="myexam_identity">
                     <ul>
                         <li>姓名：试用账号</li>
@@ -260,10 +260,10 @@
                 D<input name='danx<text>1</text>' value='D' type='radio' />
                 <br />
                 <br />
-                <img alt="" src={{ url('./assets/img/exam/diyiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/zuimoti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/diyiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/zuimoti.jpg')}} width='92' height='29' />
             </div>
         </div>
     </div>
@@ -290,10 +290,10 @@
                 D<input name='duox<text>21</text>' value='D' type='checkbox' />
                 <br />
                 <br />
-                <img alt="" src={{ url('./assets/img/exam/diyiti.jpg')}} width='92' height='29'/>
-                <img alt="" src={{ url('./assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/zuimoti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/diyiti.jpg')}} width='92' height='29'/>
+                <img alt="" src={{ asset('/assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/zuimoti.jpg')}} width='92' height='29' />
             </div>
         </div>
     </div>
@@ -310,10 +310,10 @@
                 错误<input name='pand<text>51</text>' value='0' type='radio' />
                 <br />
                 <br />
-                <img alt="" src={{ url('./assets/img/exam/diyiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
-                <img alt="" src={{ url('./assets/img/exam/zuimoti.jpg')}} width='92' height='29'/>
+                <img alt="" src={{ asset('/assets/img/exam/diyiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
+                <img alt="" src={{ asset('/assets/img/exam/zuimoti.jpg')}} width='92' height='29'/>
             </div>
         </div>
     </div>
@@ -401,10 +401,10 @@
                         <br />
                     </div>
             </div>
-            <img alt="" src={{ url('./assets/img/exam/diyiti.jpg')}} width='92' height='29' />
-            <img alt="" src={{ url('./assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
-            <img alt="" src={{ url('./assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
-            <img alt="" src={{ url('./assets/img/exam/zuimoti.jpg')}} width='92' height='29'/>
+            <img alt="" src={{ asset('/assets/img/exam/diyiti.jpg')}} width='92' height='29' />
+            <img alt="" src={{ asset('/assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
+            <img alt="" src={{ asset('/assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
+            <img alt="" src={{ asset('/assets/img/exam/zuimoti.jpg')}} width='92' height='29'/>
         </div>
     </div>
     <div class= 'divr' style="display:none" ref="4|62">
@@ -489,10 +489,10 @@
                         <br />
                     </div>
             </div>
-            <img alt="" src={{ url('./assets/img/exam/diyiti.jpg')}} width='92' height='29' />
-            <img alt="" src={{ url('./assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
-            <img alt="" src={{ url('./assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
-            <img alt="" src={{ url('./assets/img/exam/zuimoti.jpg')}} width='92' height='29'/>
+            <img alt="" src={{ asset('/assets/img/exam/diyiti.jpg')}} width='92' height='29' />
+            <img alt="" src={{ asset('/assets/img/exam/shangyiti.jpg')}} width='92' height='29' />
+            <img alt="" src={{ asset('/assets/img/exam/xiayiti.jpg')}} width='92' height='29' />
+            <img alt="" src={{ asset('/assets/img/exam/zuimoti.jpg')}} width='92' height='29'/>
         </div>
     </div>
 </div>

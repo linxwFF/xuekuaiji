@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('extendCss')
-<link href={{asset("../build/css/custom.css")}} rel="stylesheet">
+<link href={{asset("/build/css/custom.css")}} rel="stylesheet">
 <!-- Datatables -->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.dataTables.min.css')}}">
 <style>
