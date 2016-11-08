@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call('DictTableSeeder');
-        $this->command->info('dictTableSeeder success!');
+        $this->command->info('DictTableSeeder success!');
 
         Model::reguard();
     }

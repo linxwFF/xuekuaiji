@@ -16,11 +16,8 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('select').on('change', function () {
-                if ($(this).val() == null) {
-                    alert('请选择考试科目');
-                }
-                $('#lianjie').attr("href", "/exam?kemu_id=" + $(this).val() + "&timestamp=0636462431");
-            })
+                    $('#lianjie').attr("href", "/exam?course_id=" + $(this).val() + "&timestamp="+new Date().getTime());
+            });
         });
     </script>
 
@@ -45,14 +42,13 @@
             </tr>
             <tr>
                 <td class="ar">姓名：</td>
-                <td>fjsy0003</td>
+                <td>{{ $username }}</td>
             </tr>
             <tr>
                 <td class="ar">考试科目：</td>
                 <td>
                     <div class="form-group">
                         <select  class="form-control">
-                            <option value="">请选择考试内容</option>
                             <option value="1">财经法规与会计职业道德</option>
                             <option value="2">会计电算化</option>
                             <option value="3">会计基础</option>
@@ -62,7 +58,7 @@
             </tr>
             <tr>
                 <td height="56" colspan="2" align="center" class="dlbut">
-                    <a id="lianjie" href="/exam?kemu_id=1&amp;timestamp=0636462431">
+                    <a id="lianjie" href="/exam?course_id=1&amp;timestamp=111">
                         <button class="btn btn-primary">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

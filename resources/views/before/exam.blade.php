@@ -134,7 +134,7 @@
         function submitpaper() {
             if ($('.havebg').length > 0) {
                 collectanswer();
-                // $('form').submit();
+                $('form').submit();
             } else {
                 alert('没有答题，无法交卷！');
             }
@@ -145,9 +145,11 @@
 
 
 
-<form action="/Main/Jiaojuan" method="post">        <input type="hidden" name="daan" id="daan" />
+<form action="/handPaper" method="post">
+        {{ csrf_field() }}
+        <input type="hidden" name="daan" id="daan" />
         <input type="hidden" name="timestamp" value="0636462431" />
-        <input type="hidden" name="kemu_id" value="1" />
+        <input type="hidden" name="kemu_id" value="{{ $course_id }}" />
         <input type="hidden" name="ys" id="ys" value="0" />
 </form>
 
@@ -168,10 +170,10 @@
                     <img src={{asset('/assets/img/exam/portrait.jpg')}} alt="" /></td>
                 <td class="myexam_identity">
                     <ul>
-                        <li>姓名：试用账号</li>
+                        <li>姓名：{{ $username}}</li>
                         <li>准考证号：123456789123xxxxxx</li>
                         <li>身份证号：450205198008xxxxxx</li>
-                        <li>考试科目：<span id="kskm2">财经法规与会计职业道德</span></li>
+                        <li>考试科目：<span id="kskm2">{{ $course_type }}</span></li>
                     </ul>
                 </td>
                 <td class="myexam_tt ac">
@@ -199,50 +201,55 @@
             <tr>
                 <td class="myexam_options">
                     <div class="myexam_wrap">
-    <div style="display:block" ref="1">
-            <div class='type_1' onclick='showsubmenu($(this))'>单选题（20）</div>
-            <div class='numberlist'>
-                <ul>
-                    @foreach ($type_1 as $value)
-                    <li class='nomakebg'>{{ $value->id }}</li>
-                    @endforeach
-                </ul>
-            </div>
-                    <div class='type_1' onclick='showsubmenu($(this))'>多选题（20）</div>
-            <div class='numberlist'>
-                <ul>
-                    @foreach ($type_2 as $value)
-                    <li class='nomakebg'>{{ $value->id }}</li>
-                    @endforeach
-                </ul>
-            </div>
-                    <div class='type_1' onclick='showsubmenu($(this))'>判断题（20）</div>
-            <div class='numberlist'>
-                <ul>
-                    @foreach ($type_3 as $value)
-                    <li class='nomakebg'>{{ $value->id }}</li>
-                    @endforeach
-                </ul>
-            </div>                    <div class='type_1' onclick='showsubmenu($(this))'>大题（2）</div>
-            <div class='numberlist'>
-                <ul>
-                        <li class='nomakebg'>61</li>
-                        <li class='nomakebg'>62</li>
-                </ul>
-            </div>    </div>
+                        <div style="display:block" ref="1">
+                            <div class='type_1' onclick='showsubmenu($(this))'>单选题（{{ $takeNum }}）</div>
+                            <div class='numberlist'>
+                                <ul>
+                                    @foreach ($type_1 as $key=>$value)
+                                    <li class='nomakebg'>{{ $key+1 }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class='type_1' onclick='showsubmenu($(this))'>多选题（{{ $takeNum }}）</div>
+                            <div class='numberlist'>
+                                <ul>
+                                    @foreach ($type_2 as $key=>$value)
+                                    <li class='nomakebg'>{{ ($key+1)+$takeNum }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class='type_1' onclick='showsubmenu($(this))'>判断题（{{ $takeNum }}）</div>
+                            <div class='numberlist'>
+                                <ul>
+                                    @foreach ($type_3 as $key=>$value)
+                                    <li class='nomakebg'>{{ ($key+1)+$takeNum*2 }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class='type_1' onclick='showsubmenu($(this))'>大题（2）</div>
+                            <div class='numberlist'>
+                                <ul>
+                                        <li class='nomakebg'>31</li>
+                                        <li class='nomakebg'>32</li>
+                                </ul>
+                            </div>
+                        </div>
 
                         <div id="submitpaper" onclick="submitpaper()"></div>
-
                     </div>
-
                 </td>
+
                 <td class="myexam_main">
                          <div style="display:block;" ref="1" class="temp">
+
 @foreach ($type_1 as $key=>$value)
-    <div class= 'divr'  style="{{$key === 0?'display:block':'display:none'}}" ref="{{ $value->type }}|{{ $value->id }}">
+    <div class= 'divr'  style="{{$key === 0?'display:block':'display:none'}}" ref="{{ $value->type }}|{{ $key+1 }}">
         <div class='divrcon'>
             <div class='divrtit'>一、单项选择题(本类题共20小题，每小题1分，共20分。每小题备选答案中，只有一个符合题意的正确答案，多选、错选、不选均不得分。)</div>
-            <br />{{ $value->id }} 、{{ $value->subject }}<br />
+            <br />{{ $key+1 }} 、{{ $value->subject }}<br />
             <br />
             A、{{ $value->choose_A }}
             <br />
@@ -268,11 +275,12 @@
         </div>
     </div>
 @endforeach
-@foreach ($type_2 as $value)
-    <div class= 'divr' style="display:none" ref="{{ $value->type }}|{{ $value->id }}">
+
+@foreach ($type_2 as $key=>$value)
+    <div class= 'divr' style="display:none" ref="{{ $value->type }}|{{ ($key+1)+$takeNum }}">
         <div class='divrcon'>
             <div class='divrtit'>二、多项选择题(本类题共20小题，每小题2分，共40分。每小题备选答案中，有两个或两个以上符合题意的正确答案，多选、少选、错选、不选均不得分。)</div>
-            <br />{{ $value->id }} 、{{ $value->subject }}<br />
+            <br />{{ ($key+1)+$takeNum }} 、{{ $value->subject }}<br />
             <br />
             A、{{ $value->choose_A }}
             <br />
@@ -298,11 +306,12 @@
         </div>
     </div>
 @endforeach
-@foreach ($type_3 as $value)
-    <div class= 'divr' style="display:none" ref="{{ $value->type }}|{{ $value->choose_id }}">
+
+@foreach ($type_3 as $key=>$value)
+    <div class= 'divr' style="display:none" ref="{{ $value->type }}|{{ ($key+1)+$takeNum*2 }}">
         <div class='divrcon'>
             <div class='divrtit'>三、判断题(本类题共20小题，每小题1分，共20分。请判断每小题的表述是否正确，每小题答题正确的得一分，答题错误的或者不答题的均不得分。)</div>
-            <br />{{ $value->id }} 、{{ $value->subject }}<br />
+            <br />{{ ($key+1)+$takeNum*2 }} 、{{ $value->subject }}<br />
             <br />
             <div class='divrda'>
                 <span class='xzda'>选择答案：</span>
@@ -319,10 +328,10 @@
     </div>
 @endforeach
 
-    <div class= 'divr' style="display:none" ref="4|61">
+    <div class= 'divr' style="display:none" ref="4|31">
         <div class='divrcon'>
             <div class='divrtit'>四、分析题(本类题共2大题，10小题，每小题2分，共20分)</div>
-            <br />61、<span style="font-family:'Times New Roman';font-size:10.5pt;">A</span><span style="font-family:宋体;font-size:10.5pt;">公司因向</span><span style="font-family:'Times New Roman';font-size:10.5pt;">B</span><span style="font-family:宋体;font-size:10.5pt;">公司购买一批产品，签发一张金额为</span><span style="font-family:'Times New Roman';font-size:10.5pt;">10</span><span style="font-family:宋体;font-size:10.5pt;">万元的支票给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">B</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">B</span><span style="font-family:宋体;font-size:10.5pt;">公司为支付工程价款又将该支票背书转让给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">C</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">C</span><span style="font-family:宋体;font-size:10.5pt;">公司接受后，不慎将支票遗失，该支票被</span><span style="font-family:'Times New Roman';font-size:10.5pt;">D</span><span style="font-family:宋体;font-size:10.5pt;">公司拾获，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">D</span><span style="font-family:宋体;font-size:10.5pt;">公司便伪造了</span><span style="font-family:'Times New Roman';font-size:10.5pt;">C</span><span style="font-family:宋体;font-size:10.5pt;">公司的签章，并将支票转让给不知情的</span><span style="font-family:'Times New Roman';font-size:10.5pt;">E</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">E</span><span style="font-family:宋体;font-size:10.5pt;">公司又将该支票的金额改为</span><span style="font-family:'Times New Roman';font-size:10.5pt;">18</span><span style="font-family:宋体;font-size:10.5pt;">万元转让给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">F</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">F</span><span style="font-family:宋体;font-size:10.5pt;">公司则背书转让给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">G</span><span style="font-family:宋体;font-size:10.5pt;">公司。</span>
+            <br />31、<span style="font-family:'Times New Roman';font-size:10.5pt;">A</span><span style="font-family:宋体;font-size:10.5pt;">公司因向</span><span style="font-family:'Times New Roman';font-size:10.5pt;">B</span><span style="font-family:宋体;font-size:10.5pt;">公司购买一批产品，签发一张金额为</span><span style="font-family:'Times New Roman';font-size:10.5pt;">10</span><span style="font-family:宋体;font-size:10.5pt;">万元的支票给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">B</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">B</span><span style="font-family:宋体;font-size:10.5pt;">公司为支付工程价款又将该支票背书转让给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">C</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">C</span><span style="font-family:宋体;font-size:10.5pt;">公司接受后，不慎将支票遗失，该支票被</span><span style="font-family:'Times New Roman';font-size:10.5pt;">D</span><span style="font-family:宋体;font-size:10.5pt;">公司拾获，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">D</span><span style="font-family:宋体;font-size:10.5pt;">公司便伪造了</span><span style="font-family:'Times New Roman';font-size:10.5pt;">C</span><span style="font-family:宋体;font-size:10.5pt;">公司的签章，并将支票转让给不知情的</span><span style="font-family:'Times New Roman';font-size:10.5pt;">E</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">E</span><span style="font-family:宋体;font-size:10.5pt;">公司又将该支票的金额改为</span><span style="font-family:'Times New Roman';font-size:10.5pt;">18</span><span style="font-family:宋体;font-size:10.5pt;">万元转让给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">F</span><span style="font-family:宋体;font-size:10.5pt;">公司，</span><span style="font-family:'Times New Roman';font-size:10.5pt;">F</span><span style="font-family:宋体;font-size:10.5pt;">公司则背书转让给</span><span style="font-family:'Times New Roman';font-size:10.5pt;">G</span><span style="font-family:宋体;font-size:10.5pt;">公司。</span>
             <div class='divswl'>
 
                     <br />
@@ -407,10 +416,11 @@
             <img alt="" src={{ asset('/assets/img/exam/zuimoti.jpg')}} width='92' height='29'/>
         </div>
     </div>
-    <div class= 'divr' style="display:none" ref="4|62">
+
+    <div class= 'divr' style="display:none" ref="4|32">
         <div class='divrcon'>
             <div class='divrtit'>四、分析题(本类题共2大题，10小题，每小题2分，共20分)</div>
-            <br />62、<span style="font-family:宋体;font-size:10.5pt;">甲向乙签发了一张</span><span style="font-family:'Times New Roman';font-size:10.5pt;">20</span><span style="font-family:宋体;font-size:10.5pt;">万元的支票，出票时间为</span><span style="font-family:'Times New Roman';font-size:10.5pt;">2010</span><span style="font-family:宋体;font-size:10.5pt;">年</span><span style="font-family:'Times New Roman';font-size:10.5pt;">4</span><span style="font-family:宋体;font-size:10.5pt;">月</span><span style="font-family:'Times New Roman';font-size:10.5pt;">1</span><span style="font-family:宋体;font-size:10.5pt;">日，乙于同年</span><span style="font-family:'Times New Roman';font-size:10.5pt;">4</span><span style="font-family:宋体;font-size:10.5pt;">月</span><span style="font-family:'Times New Roman';font-size:10.5pt;">5</span><span style="font-family:宋体;font-size:10.5pt;">日背书转让给丙。</span>
+            <br />32、<span style="font-family:宋体;font-size:10.5pt;">甲向乙签发了一张</span><span style="font-family:'Times New Roman';font-size:10.5pt;">20</span><span style="font-family:宋体;font-size:10.5pt;">万元的支票，出票时间为</span><span style="font-family:'Times New Roman';font-size:10.5pt;">2010</span><span style="font-family:宋体;font-size:10.5pt;">年</span><span style="font-family:'Times New Roman';font-size:10.5pt;">4</span><span style="font-family:宋体;font-size:10.5pt;">月</span><span style="font-family:'Times New Roman';font-size:10.5pt;">1</span><span style="font-family:宋体;font-size:10.5pt;">日，乙于同年</span><span style="font-family:'Times New Roman';font-size:10.5pt;">4</span><span style="font-family:宋体;font-size:10.5pt;">月</span><span style="font-family:'Times New Roman';font-size:10.5pt;">5</span><span style="font-family:宋体;font-size:10.5pt;">日背书转让给丙。</span>
             <div class='divswl'>
 
                     <br />
